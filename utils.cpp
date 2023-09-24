@@ -7,7 +7,7 @@
 
 using namespace std;
 
-using CDuration = std::chrono::duration<double>;
+using CDuration = chrono::duration<double>;
 
 
 /**
@@ -19,9 +19,9 @@ using CDuration = std::chrono::duration<double>;
  * @return 0.
  */
 int launchGame(int maxLimit, int numberOfGames) {
-    auto randomGenerator = std::random_device{};
-    auto generator = mt19937{randomGenerator()};
-    auto distribution = std::uniform_int_distribution{MIN_LIMIT, maxLimit};
+    auto randomGenerator = random_device{};
+    mt19937 generator = mt19937{randomGenerator()};
+    uniform_int_distribution distribution = uniform_int_distribution{MIN_LIMIT, maxLimit};
     int score = 0;
     cout << "Let's go!" << endl;
     for (int i = 0; i < numberOfGames; i++) {
@@ -39,7 +39,7 @@ int launchGame(int maxLimit, int numberOfGames) {
 int playAGame(int numberToGuess) {
     int suggestionNumber;
     int attemptsNumber = 0;
-    auto startGameTime = std::chrono::system_clock::now();
+    chrono::time_point startGameTime = chrono::system_clock::now();
     do {
         askSuggestion(suggestionNumber);
         if (suggestionNumber >= MIN_LIMIT && suggestionNumber < MAX_LIMIT) {
@@ -63,10 +63,10 @@ int playAGame(int numberToGuess) {
             cout << "The number to guess is between " << MIN_LIMIT << " and " << MAX_LIMIT << "." << endl;
         }
     } while (suggestionNumber != numberToGuess);
-    auto endGameTime = std::chrono::system_clock::now();
-    auto timeOfGame = std::chrono::duration_cast<CDuration>(endGameTime - startGameTime);
+    chrono::time_point endGameTime = chrono::system_clock::now();
+    CDuration timeOfGame = chrono::duration_cast<CDuration>(endGameTime - startGameTime);
     cout << "Well done! You won with " << attemptsNumber << " attemps!" << endl;
-    cout << "Duration of this game: " << timeOfGame.count() << "seconds" << endl;
+    cout << "Duration of this game: " << timeOfGame.count() << " seconds" << endl;
     return attemptsNumber;
 }
 
