@@ -1,5 +1,5 @@
 #include <iostream>
-#include<array>
+#include <array>
 #include "constants.h"
 #include "utils.h"
 
